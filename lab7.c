@@ -59,9 +59,17 @@ void show_letter(); //Function declaration of Show Corresponding
 *****************************************************************
 */
 
-int main(void)
+int main(int argc, char *argv[])
 {
 
+    if (argc == 1)
+    {
+        printf("The name of the file is missing.\n");
+        return 0;
+    }
+    else
+        read_file(argv[1]);
+    
     int i;
     for (i = 0; i < SIZE; ++i)
         lists[i] = NULL; //Creates the 26 empty linked lists
