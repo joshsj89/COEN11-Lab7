@@ -1,4 +1,4 @@
-Names   Number
+Names   Numbers
 
 ----------------------------------
 
