@@ -63,6 +63,10 @@ void read_file(); //Function declaration of Read File
 int main(int argc, char *argv[])
 {
 
+    int i;
+    for (i = 0; i < SIZE; ++i)
+        lists[i] = NULL; //Creates the 26 empty linked lists
+    
     if (argc == 1)
     {
         printf("The name of the file is missing.\n");
@@ -70,10 +74,6 @@ int main(int argc, char *argv[])
     }
     else
         read_file(argv[1]);
-    
-    int i;
-    for (i = 0; i < SIZE; ++i)
-        lists[i] = NULL; //Creates the 26 empty linked lists
 
     int command;
     int boolean = 1;
