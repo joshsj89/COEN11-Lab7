@@ -357,7 +357,7 @@ void save_file(char *name) //Save File function
     fseek(fp, 57, SEEK_SET);
 
     int letterIndex;
-    for (letterIndex = 0; letterIndex < SIZE; ++ letterIndex)
+    for (letterIndex = 0; letterIndex < SIZE; ++letterIndex)
     {
         p = lists[letterIndex];
 
