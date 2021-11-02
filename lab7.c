@@ -328,6 +328,8 @@ void read_file(char *name) //Read File function
         return;
     }
 
+    fseek(fp, 54, SEEK_SET);
+
     while ((fscanf(fp, "%s", string_name) > 0) && (fscanf(fp, "%s", string_number) > 0))
     {
         characterInsert(string_name, string_number);
