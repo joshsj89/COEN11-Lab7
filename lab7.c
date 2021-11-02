@@ -50,7 +50,8 @@ void insert(); //Function declaration of Insert
 void delete(); //Function declaration of Delete
 void show(); //Function declaration of Show All
 void show_letter(); //Function declaration of Show Corresponding
-void read_file(); //Function declaration of Read File
+void read_file(char *name); //Function declaration of Read File
+void save_file(char *name); //Function declaration of Save File
 
 /*
 *****************************************************************
@@ -106,6 +107,8 @@ int main(int argc, char *argv[])
         }
     }
 
+    save_file(argv[1]);
+    
     free(lists[i-1]); //Deallocates the linked list
 }
 
@@ -328,7 +331,7 @@ void read_file(char *name) //Read File function
         return;
     }
 
-    fseek(fp, 54, SEEK_SET);
+    fseek(fp, 56, SEEK_SET);
 
     while ((fscanf(fp, "%s", string_name) > 0) && (fscanf(fp, "%s", string_number) > 0))
     {
@@ -350,6 +353,8 @@ void save_file(char *name) //Save File function
        printf("The file, phonebook_data.txt, cannot be saved.\n");
        return; 
     }
+
+    fseek(fp, 56, SEEK_SET);
 
     int letterIndex;
     for (letterIndex = 0; letterIndex < SIZE; ++ letterIndex)
