@@ -337,3 +337,31 @@ void read_file(char *name) //Read File function
 
     fclose(fp);
 }
+
+void save_file(char *name) //Save File function
+{
+    FILE *fp;
+    NODE *p;
+
+    fp = fopen(name, "w");
+
+    if (fp == NULL)
+    {
+       printf("The file, phonebook_data.txt, cannot be saved.\n");
+       return; 
+    }
+
+    int letterIndex;
+    for (letterIndex = 0; letterIndex < SIZE; ++ letterIndex)
+    {
+        p = lists[letterIndex];
+
+        while (p != NULL)
+        {
+            fprintf(fp, "%s\t%s\n", p->name, p->number);
+            p = p->next;
+        }
+    }
+
+    fclose(fp);
+}
