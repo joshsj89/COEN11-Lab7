@@ -50,6 +50,7 @@ void insert(); //Function declaration of Insert
 void delete(); //Function declaration of Delete
 void show(); //Function declaration of Show All
 void show_letter(); //Function declaration of Show Corresponding
+void read_file(); //Function declaration of Read File
 
 /*
 *****************************************************************
@@ -311,4 +312,26 @@ void show_letter() //Show Corresponding function
         printf("%s\t%s\n", n->name, n->number); //Prints the name and number of one node
         n = n->next; //Contiues to the next node
     }
+}
+
+void read_file(char *name) //Read File function
+{
+    FILE *fp;
+    char string_name[20];
+    char string_number[20];
+
+    fp = fopen(name, "r");
+
+    if (fp == NULL)
+    {
+        printf("The file, phonebook_data.txt, cannot be opened.\n");
+        return;
+    }
+
+    while ((fscanf(fp, "%s", string_name) > 0) && (fscanf(fp, "%s", string_number) > 0))
+    {
+        characterInsert(string_name, string_number);
+    }
+
+    fclose(fp);
 }
