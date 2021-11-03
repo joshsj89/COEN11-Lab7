@@ -331,7 +331,7 @@ void read_file(char *name) //Read File function
         return;
     }
 
-    fseek(fp, 57, SEEK_SET);
+    fseek(fp, 56, SEEK_SET);
 
     while ((fscanf(fp, "%s", string_name) > 0) && (fscanf(fp, "%s", string_number) > 0))
     {
@@ -354,7 +354,7 @@ void save_file(char *name) //Save File function
        return; 
     }
 
-    fseek(fp, 57, SEEK_SET);
+    fprintf(fp, "Names\tNumbers\t\n\n----------------------------------\n\n");
 
     int letterIndex;
     for (letterIndex = 0; letterIndex < SIZE; ++letterIndex)
