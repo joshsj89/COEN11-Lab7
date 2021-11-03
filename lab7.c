@@ -330,7 +330,7 @@ void read_file(char *name) //Read File function
 
     fseek(fp, 56, SEEK_SET); //Bypass the header of the text file
 
-    while ((fscanf(fp, "%s", string_name) > 0) && (fscanf(fp, "%s", string_number) > 0))
+    while (fscanf(fp, "%s%s", string_name, string_number) == 2) //While the file pointer points to a name and number
     {
         characterInsert(string_name, string_number); //Inserts the name from the file
     }
