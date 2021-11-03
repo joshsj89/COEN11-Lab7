@@ -327,7 +327,7 @@ void read_file(char *name) //Read File function
 
     if (fp == NULL)
     {
-        printf("The file, phonebook_data.txt, cannot be opened.\n");
+        printf("The file does not exist and will be created upon save.\n");
         return;
     }
 
@@ -350,7 +350,7 @@ void save_file(char *name) //Save File function
 
     if (fp == NULL)
     {
-       printf("The file, phonebook_data.txt, cannot be saved.\n");
+       printf("The file cannot be saved.\n");
        return; 
     }
 
