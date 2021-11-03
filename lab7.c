@@ -325,11 +325,8 @@ void read_file(char *name) //Read File function
 
     fp = fopen(name, "r");
 
-    if (fp == NULL)
-    {
-        printf("The file does not exist and will be created upon save.\n");
+    if (fp == NULL) //The file does not exist and will be created upon save
         return;
-    }
 
     fseek(fp, 56, SEEK_SET);
 
