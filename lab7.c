@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     for (i = 0; i < SIZE; ++i)
         lists[i] = NULL; //Creates the 26 empty linked lists
     
-    if (argc == 1)
+    if (argc == 1) //If no file name was given as an argument
     {
         printf("The name of the file is missing.\n");
         return 0;
@@ -319,42 +319,42 @@ void show_letter() //Show Corresponding function
 
 void read_file(char *name) //Read File function
 {
-    FILE *fp;
+    FILE *fp; //File pointer
     char string_name[20];
     char string_number[20];
 
-    fp = fopen(name, "r");
+    fp = fopen(name, "r"); //Reading the file
 
     if (fp == NULL) //The file does not exist and will be created upon save
         return;
 
-    fseek(fp, 56, SEEK_SET);
+    fseek(fp, 56, SEEK_SET); //Bypass the header of the text file
 
     while ((fscanf(fp, "%s", string_name) > 0) && (fscanf(fp, "%s", string_number) > 0))
     {
-        characterInsert(string_name, string_number);
+        characterInsert(string_name, string_number); //Inserts the name from the file
     }
 
-    fclose(fp);
+    fclose(fp); //Closes file pointer
 }
 
 void save_file(char *name) //Save File function
 {
-    FILE *fp;
+    FILE *fp; //File pointer
     NODE *p;
 
-    fp = fopen(name, "w");
+    fp = fopen(name, "w"); //Writing to the file (overwriting)
 
-    if (fp == NULL)
+    if (fp == NULL) //If file does not exist
     {
        printf("The file cannot be saved.\n");
        return; 
     }
 
-    fprintf(fp, "Names\tNumbers\t\n\n----------------------------------\n\n");
+    fprintf(fp, "Names\tNumbers\t\n\n----------------------------------\n\n"); //Header of the text file
 
     int letterIndex;
-    for (letterIndex = 0; letterIndex < SIZE; ++letterIndex)
+    for (letterIndex = 0; letterIndex < SIZE; ++letterIndex) //Prints all the names on the list into the file
     {
         p = lists[letterIndex];
 
@@ -365,5 +365,5 @@ void save_file(char *name) //Save File function
         }
     }
 
-    fclose(fp);
+    fclose(fp); //Closes file pointer
 }
