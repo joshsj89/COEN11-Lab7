@@ -37,6 +37,7 @@ struct contact //Node of the linked list
 */
 
 NODE *lists[SIZE]; //Array of linked lists
+char *fileHeader = "Names\tNumbers\t\n\n----------------------------------\n\n"; //Header of the text file
 
 /*
 *****************************************************************
@@ -328,7 +329,7 @@ void read_file(char *name) //Read File function
     if (fp == NULL) //The file does not exist and will be created upon save
         return;
 
-    fseek(fp, 56, SEEK_SET); //Bypass the header of the text file
+    fseek(fp, strlen(fileHeader), SEEK_SET); //Bypass the header of the text file
 
     while (fscanf(fp, "%s%s", string_name, string_number) == 2) //While the file pointer points to a name and number
     {
@@ -351,7 +352,8 @@ void save_file(char *name) //Save File function
        return; 
     }
 
-    fprintf(fp, "Names\tNumbers\t\n\n----------------------------------\n\n"); //Header of the text file
+    
+    fprintf(fp, fileHeader); //Print the header to the file
 
     int letterIndex;
     for (letterIndex = 0; letterIndex < SIZE; ++letterIndex) //Prints all the names on the list into the file
