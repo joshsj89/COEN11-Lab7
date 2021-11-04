@@ -353,7 +353,7 @@ void save_file(char *name) //Save File function
     }
 
     
-    fprintf(fp, fileHeader); //Print the header to the file
+    fprintf(fp, "%s" , fileHeader); //Print the header to the file
 
     int letterIndex;
     for (letterIndex = 0; letterIndex < SIZE; ++letterIndex) //Prints all the names on the list into the file
