@@ -237,8 +237,7 @@ void characterDelete(char inputtedName[20]) //Checks if name is in the phonebook
         return;
     }
     
-    NODE *temp = lists[letterIndex]; 
-    NODE *prev;
+    NODE *temp = lists[letterIndex];
 
     if (lists[letterIndex] == NULL) //If the list is empty
     {
@@ -246,27 +245,45 @@ void characterDelete(char inputtedName[20]) //Checks if name is in the phonebook
         return;
     }
     
-    if (strcmp(temp->name, inputtedName) == 0) //When the name to be deleted is in the head node
+    if (temp->next == NULL && strcmp(temp->name, inputtedName) == 0) //When the name to be deleted is the head and tail node
+    {
+        lists[letterIndex] = listsTail[letterIndex] = NULL;
+        printf("%s has been deleted.\n", temp->name);
+        return;
+    }
+    
+    else if (strcmp(temp->name, inputtedName) == 0) //When the name to be deleted is in the head node
     {
         lists[letterIndex] = temp->next; //Makes what the head pointed to the new head
+        lists[letterIndex]->prev = NULL;
+        printf("%s has been deleted.\n", temp->name);
         return;
     }
 
     while (temp != NULL && (strcmp(temp->name, inputtedName) != 0)) //Continues to the next node until a name matches or until the end of the list
-    {
-        prev = temp; 
-        temp = temp->next;
-    } //Moves the 2 pointers down the list together
+        temp = temp->next; //Moves a pointer down the list
 
     if (temp == NULL) //If the end of the list is reached without finding a name match
     {
         printf("Sorry, the name you want to delete is not in the phonebook.\n");
         return;
     }
-    
-    printf("%s has been deleted.\n", temp->name);
-    prev->next = temp->next; //Makes the node before the deleted one point to the node following the deleted one
 
+    else if (temp == listsTail[letterIndex]) //If the name to be deleted is the tail
+    {
+        listsTail[letterIndex] = temp->prev;
+        listsTail[letterIndex]->next = NULL;
+        printf("%s has been deleted.\n", temp->name);
+        return;
+    }
+    
+    else
+    {
+        temp->prev->next = temp->next; //Makes the node before the deleted one point to the node following the deleted one
+        temp->next->prev = temp->prev;
+        printf("%s has been deleted.\n", temp->name);
+    }
+    
     free(temp); //Deallocates pointer
 }
 
