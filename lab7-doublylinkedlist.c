@@ -128,9 +128,9 @@ int main(int argc, char *argv[])
 
 void characterInsert(char newName[20], char newNumber[20])
 {
-    NODE *temp, *prev, *new_node;
+    NODE *temp, *new_node;
 
-    if (((temp = (NODE *)malloc(sizeof(NODE))) == NULL) || ((prev = (NODE *)malloc(sizeof(NODE))) == NULL) || ((new_node = (NODE *)malloc(sizeof(NODE))) == NULL))
+    if (((temp = (NODE *)malloc(sizeof(NODE))) == NULL) || ((new_node = (NODE *)malloc(sizeof(NODE))) == NULL))
     {//Allocate pointers
         printf("Malloc error...\n"); //Error given if pointers not allocated successfully
         exit(1);
@@ -160,34 +160,44 @@ void characterInsert(char newName[20], char newNumber[20])
     strcpy(new_node->number, newNumber); //Copies inputted number to a new node
     
 
-    if (lists[letterIndex] == NULL || strcmp(temp->name, new_node->name) > 0) //If the list is empty or the inputted name comes before the first name on the list
+    if (lists[letterIndex] == NULL) //If the list is empty
+    {
+        lists[letterIndex] = listsTail[letterIndex] = new_node; //Makes the new node the head and tail
+        new_node->prev = new_node->next = NULL;
+        return;
+    }
+    
+    else if (strcmp(temp->name, new_node->name) > 0) //If the inputted name comes before the first name on the list
     {
         new_node->next = lists[letterIndex]; //Makes the new node point to the first on the list
+        new_node->prev = NULL; //Makes the new node point back to NULL
+        new_node->next->prev = new_node; //Makes the node the new node now points to point back to it
         lists[letterIndex] = new_node; //Makes the new node the head
         return;
     }
     
     while (temp->next != NULL && (strcmp(temp->name, new_node->name) < 0)) //Continues to the next node when the inputted name comes after the first name on list and is not the last node
-    {
-            prev = temp;
-            temp = temp->next;
-    } //Moves 2 pointers down the list together
+            temp = temp->next; //Moves a pointer down the list
     
-    if (temp->next == NULL && (strcmp(temp->name, new_node->name) < 0)) //Continues to the next node when the inputted name comes after the first name on list but is also the last node
+    if (temp->next == NULL && strcmp(temp->name, new_node->name) != 0) //If the new node will be the tail and is not a duplicate
     {
-        new_node->next = temp->next; //Makes the new node point to null (where the last node was pointing)
-        temp->next = new_node; //That last node now points to the new node making it the last node
+        new_node->next = temp->next;
+        new_node->prev = listsTail[letterIndex];
+        listsTail[letterIndex]->next = new_node;
+        listsTail[letterIndex] = new_node;
         return;
     }
-    
-    if (strcmp(temp->name, new_node->name) > 0) //If the inputted name comes before the name being checked
+
+    else if (strcmp(temp->name, new_node->name) > 0) //If the inputted name comes before the name being checked
     {
-        prev->next = new_node; 
         new_node->next = temp;
+        new_node->prev = temp->prev;
+        temp->prev->next = new_node; 
+        temp->prev = new_node;
         return;
-    } //Puts the new node in between prev and temp
+    } //Puts the new node in between temp and the one before temp
     
-    if (temp != NULL && (strcmp(newName, temp->name) == 0)) //If the inputted name is already on the list
+    else if (temp != NULL && (strcmp(newName, temp->name) == 0)) //If the inputted name is already on the list
     {
         printf("Sorry, this name and/or number is already in the phonebook.\n");
         return;
